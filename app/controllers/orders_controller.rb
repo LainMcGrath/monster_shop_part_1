@@ -48,10 +48,10 @@ class OrdersController <ApplicationController
     stats = 0
     orders.item_orders.each do |order|
     if order.status == "fulfilled"
-      stat += 1
+      stats += 1
       end
     end
-    if stat == orders.item_orders.count
+    if stats == orders.item_orders.count
       order.update("status" => "packaged")
     end
   end
