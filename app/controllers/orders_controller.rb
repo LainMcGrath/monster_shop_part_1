@@ -46,6 +46,11 @@ class OrdersController <ApplicationController
 
   def packaged(orders)
     stats = 0
+    orders.item_orders.each do |order|
+    if order.status == "fulfilled"
+      stat += 1
+      end
+    end
 
   end
 
