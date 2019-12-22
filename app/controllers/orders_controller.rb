@@ -51,7 +51,9 @@ class OrdersController <ApplicationController
       stat += 1
       end
     end
-
+    if stat == orders.item_orders.count
+      order.update("status" => "packaged")
+    end
   end
 
   private
