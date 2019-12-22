@@ -33,5 +33,8 @@ RSpec.describe 'when all items have been fulfilled in an order'do
     Order.last.item_orders[0].update("status" => "fulfilled")
 
     expect(page).to have_content('Order status: pending')
+
+    Order.last.item_orders[1].update("status" => "fulfilled")
+
   end
 end
