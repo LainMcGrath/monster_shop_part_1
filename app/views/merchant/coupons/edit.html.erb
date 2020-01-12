@@ -1,0 +1,3 @@
+<h1>Edit <%= @coupon.name %> </h1>
+
+<%= render partial: 'form', locals:  { path: "/merchant/coupons/#{@coupon.id}" } %>
