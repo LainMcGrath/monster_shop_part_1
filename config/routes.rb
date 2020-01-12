@@ -58,12 +58,12 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/', to: "merchant#show"
+    get '/coupons/new', to: "coupons#new"
+    post '/coupons', to: "coupons#create"
     get '/:merchant_id/items', to: "items#index"
     get '/orders/:id', to: 'orders#show'
     get '/:merchant_id/items/new', to: "items#new"
     post '/:merchant_id/items', to: "items#create"
-    # get '/:merchant_id/:items_id/edit', to: "items#edit"
-    # patch '/:merchant_id/:items_id', to: "items#update"
     get '/orders/:order_id/item_orders/:item_order_id/fulfill', to: 'item_orders#fulfill'
   end
 
