@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Coupon do
   describe "relationship" do
     it { should belong_to :merchant }
-    it { should have_many :orders}
+    it { should have_many :orders }
   end
 
   describe "validations" do
