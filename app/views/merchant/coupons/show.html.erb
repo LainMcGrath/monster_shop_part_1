@@ -1,0 +1,5 @@
+<p>Name: <%= @coupon.name %></p>
+<p>Code: <%= @coupon.code %></p>
+<p> Discount: <%= @coupon.discount.round(0) %>%</p>
+<%= link_to "Edit coupon", "/merchant/coupons/#{@coupon.id}/edit" %>
+<%= link_to "Delete coupon", "/merchant/coupons/#{@coupon.id}", method: :delete %>
