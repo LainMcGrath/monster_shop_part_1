@@ -10,5 +10,8 @@ RSpec.describe Coupon do
     it { should validate_presence_of :name }
     it { should validate_presence_of :code }
     it { should validate_presence_of :discount }
+    it { validate_numericality_of(:discount).is_less_than(100) }
+    # it { validate_numericality_of(:discount).only_integer }
+
   end
 end
