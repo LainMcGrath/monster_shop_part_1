@@ -18,8 +18,8 @@ class Merchant::CouponsController < Merchant::BaseController
   end
 
   def edit
-    merchant = Merchant.find_by(params[id: :merchant_id])
-    @coupon = merchant.coupons.find_by(params[id: :coupon_id])
+    # merchant = Merchant.find_by(params[id: :merchant_id])
+    @coupon = Coupon.find_by(params[id: :coupon_id])
   end
 
   def update
@@ -32,8 +32,7 @@ class Merchant::CouponsController < Merchant::BaseController
   end
 
   def show
-    merchant = Merchant.find_by(params[id: :merchant_id])
-    @coupon = merchant.coupons.find_by(params[id: :coupon_id])
+    @coupon = Coupon.find_by(params[id: :coupon_id])
   end
 
   def destroy
@@ -48,5 +47,4 @@ class Merchant::CouponsController < Merchant::BaseController
   def coupon_params
     params.require(:coupon).permit(:name,:code,:discount)
   end
-
 end
