@@ -1,0 +1,12 @@
+<%= form_for @coupon, url: path do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :code %>
+  <%= f.text_field :code %>
+
+  <%= f.label :discount %>
+  <%= f.text_field :discount %>
+
+  <%= f.submit %>
+<% end %>
