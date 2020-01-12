@@ -28,9 +28,10 @@
       <p>Name: <%= coupon.name %></p>
       <p>Code: <%= coupon.code %></p>
       <p>Discount: <%= coupon.discount.round(0) %>%</p>
+      <%= link_to "Edit coupon", "merchant/coupons/#{coupon.id}/edit" %>
     </section>
-    <% end%>
   </section>
+    <% end%>
 </section>
 <%= link_to "Create new coupon", "merchant/coupons/new" %>
 </section>
