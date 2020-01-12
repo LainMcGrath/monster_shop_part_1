@@ -60,6 +60,10 @@ Rails.application.routes.draw do
     get '/', to: "merchant#show"
     get '/coupons/new', to: "coupons#new"
     post '/coupons', to: "coupons#create"
+    get '/coupons/:coupon_id/edit', to: "coupons#edit"
+    patch '/coupons/:coupon_id', to: "coupons#update"
+    get '/coupons/:coupon_id', to: "coupons#show"
+    delete '/coupons/:coupon_id', to: "coupons#destroy"
     get '/:merchant_id/items', to: "items#index"
     get '/orders/:id', to: 'orders#show'
     get '/:merchant_id/items/new', to: "items#new"
