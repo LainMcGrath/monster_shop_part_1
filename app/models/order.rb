@@ -2,6 +2,7 @@
 class Order < ApplicationRecord
   has_many :item_orders
   has_many :items, through: :item_orders
+
   belongs_to :user
 
   validates_presence_of :name,
