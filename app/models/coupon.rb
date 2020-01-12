@@ -5,4 +5,7 @@ class Coupon < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :code
   validates_presence_of :discount
+  # validates :discount, numericality: { less_than_or_equal_to: 100, only_integer: true }
+  validates :discount, numericality: { less_than_or_equal_to: 100 }
+
 end
