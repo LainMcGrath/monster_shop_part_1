@@ -19,6 +19,22 @@
   <% end  %>
 </section>
 
+<section id="coupons">
+<h2>Coupons:</h2>
+<section class = "grid-container">
+<% @user.merchant.coupons.each do |coupon| %>
+  <section class = "grid-item">
+    <section id="coupon-<%= coupon.id %>">
+      <p>Name: <%= coupon.name %></p>
+      <p>Code: <%= coupon.code %></p>
+      <p>Discount: <%= coupon.discount.round(0) %>%</p>
+    </section>
+    <% end%>
+  </section>
+</section>
+<%= link_to "Create new coupon", "merchant/coupons/new" %>
+</section>
+
 <% else %>
   <p> You do not currently belong to a merchant in the system. </p>
 <% end %>
