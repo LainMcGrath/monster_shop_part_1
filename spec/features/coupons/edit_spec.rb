@@ -8,16 +8,18 @@ RSpec.describe 'Merchant can edit a coupon' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
     end
 
-    xit "can click a link to edit the coupon" do
-      visit "/merchant"
+    it "can click a link to edit the coupon" do
       coupon_1 = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: @bike_shop.id)
-      within "#coupons" do
-        within "#coupon-#{coupon_1.id}" do
-          click_on("Edit #{coupon_1.name}")
-          expect(current_path).to eq("/merchant/coupons/#{coupon_1.id}/edit")
+
+      visit "/merchant"
+
+      expect(page).to have_content(@bike_shop.name)
+
+      within "#coupon-#{coupon_1.id}" do
+        click_on("Edit coupon")
+        expect(current_path).to eq("/merchant/coupons/#{coupon_1.id}/edit")
       end
     end
-  end
 
     it "can edit a coupon" do
       coupon = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: @bike_shop.id)
