@@ -30,13 +30,17 @@ RSpec.describe "Create coupon" do
       expect(page).to have_content("Coupon was successfully created")
 
       # cannot find css - come back to this
-      # within "#coupons" do
-      #   within "#coupon-#{new_coupon.id}" do
-      #     expect(page).to have_content("Name: #{new_coupon.name}")
-      #     expect(page).to have_content("Code: #{new_coupon.code}")
-      #     expect(page).to have_content("Discount: 25%")
-      #   end
-      # end
+      within "#coupons" do
+        within ".grid-container" do
+          # within ".grid-item" do
+            within "#coupon-#{new_coupon.id}" do
+              expect(page).to have_content("Name: #{new_coupon.name}")
+              expect(page).to have_content("Code: #{new_coupon.code}")
+              expect(page).to have_content("Discount: 25%")
+            # end
+          end
+        end
+      end
     end
 
     it 'A merchant cannot create a new coupon without filling out all fields' do
