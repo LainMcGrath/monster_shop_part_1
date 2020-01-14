@@ -17,5 +17,19 @@ RSpec.describe "Merchant can delete a coupon" do
       expect(page).to have_content("#{coupon_1.name} has been deleted")
       expect(page).to_not have_content("Code: #{coupon_1.code}")
     end
+
+    it "cannot delete a coupon if it has been used in an order" do
+      user = User.create!(name: "User", address: "1230 East Street", city: "Boulder", state: "CO", zip: 98273, email: "user@user.com", password: "user", password_confirmation: "user")
+      coupon_1 = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: @bike_shop.id)
+      item_1 = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, coupon_id: coupon_1.id)
+      item_order_1 = order_1.item_orders.create!(item: item_1, price: item_1.price, quantity: 5)
+
+      visit "/merchant/coupons/#{coupon_1.id}"
+
+      expect(page).to have_link("Edit coupon")
+      expect(page).to_not have_link("Delete coupon")
+      expect(page).to have_content("Coupon has been applied to an existing order and cannot be deleted")
+    end
   end
 end
