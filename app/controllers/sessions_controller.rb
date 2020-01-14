@@ -25,6 +25,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:cart)
+    session.delete(:coupon)
     session.delete(:user_id)
     redirect_to "/"
     flash[:notice] = "You have been logged out."

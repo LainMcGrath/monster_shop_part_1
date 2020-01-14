@@ -1,0 +1,10 @@
+<p>Name: <%= @coupon.name %></p>
+<p>Code: <%= @coupon.code %></p>
+<p> Discount: <%= @coupon.discount.round(0) %>%</p>
+<%= link_to "Edit coupon", "/merchant/coupons/#{@coupon.id}/edit" %>
+
+<% if @coupon.no_orders %>
+  <%= link_to "Delete coupon", "/merchant/coupons/#{@coupon.id}", method: :delete %>
+<% else %>
+  <p>Coupon has been applied to an existing order and cannot be deleted</p>
+<% end %>

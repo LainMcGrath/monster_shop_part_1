@@ -16,6 +16,7 @@ class CartController < ApplicationController
 
   def show
     @items = cart.items
+    @coupon = session[:coupon]
   end
 
   def empty
@@ -38,15 +39,17 @@ class CartController < ApplicationController
     end
   end
 
-  # def increment_decrement
-  #   if params[:increment_decrement] == "increment"
-  #     cart.add_quantity(params[:item_id]) unless cart.limit_reached?(params[:item_id])
-  #   elsif params[:increment_decrement] == "decrement"
-  #     cart.subtract_quantity(params[:item_id])
-  #     return remove_item if cart.quantity_zero?(params[:item_id])
-  #   end
-  #   redirect_to "/cart"
-  # end
+
+  def update_coupon
+    coupon = Coupon.find_by(code: params[:code])
+    if coupon
+      session[:coupon] = coupon
+      flash[:notice] = "#{coupon.name} applied."
+    else
+      flash[:error] = "#{params[:code]} does not exist."
+    end
+    redirect_to '/cart'
+  end
 
   private
 

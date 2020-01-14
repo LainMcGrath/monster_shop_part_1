@@ -45,6 +45,21 @@
   <% end %>
 </table>
   <p>Total: <%= number_to_currency(cart.total) %></p>
+  <%= form_tag "/cart", method: :patch do %>
+    <%= label_tag :discount_code %>
+    <%= text_field_tag :code %>
+
+    <%= submit_tag "Apply coupon" %>
+  <% end %>
+
+<% if @coupon %>
+  <p>Merchant subtotal: <%= number_to_currency(cart.merchant_subtotal(@coupon['code']))%></p>
+  <p>Discount amount: <%= @coupon['discount'] %>%</p>
+  <p>Merchant total with discount: <%= number_to_currency(cart.merchant_discounted_subtotal(@coupon['code']))%></p>
+  <p>Total amount owed: <%= number_to_currency(cart.discounted_total(@coupon)) %></p>
+<% end %>
+
+
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
   <% if current_user == nil %>

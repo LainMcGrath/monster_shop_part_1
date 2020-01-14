@@ -33,8 +33,9 @@ Rails.application.routes.draw do
   get "/cart", to: "cart#show"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
-
   delete "/cart/:item_id/quantity", to: "cart#remove_item_quantity"
+  get "/cart", to: "cart#show"
+  patch "/cart", to: "cart#update_coupon"
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
   get "/register", to: "users#new"
   post "/users", to: "users#create"
   get "/users", to: "sessions#show"
+
   get "/profile", to: "users#show"
   get "/profile/orders", to: "orders#index"
   get "profile/orders/:id", to: "orders#show"
@@ -58,12 +60,16 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/', to: "merchant#show"
+    get '/coupons/new', to: "coupons#new"
+    post '/coupons', to: "coupons#create"
+    get '/coupons/:coupon_id/edit', to: "coupons#edit"
+    patch '/coupons/:coupon_id', to: "coupons#update"
+    get '/coupons/:coupon_id', to: "coupons#show"
+    delete '/coupons/:coupon_id', to: "coupons#destroy"
     get '/:merchant_id/items', to: "items#index"
     get '/orders/:id', to: 'orders#show'
     get '/:merchant_id/items/new', to: "items#new"
     post '/:merchant_id/items', to: "items#create"
-    # get '/:merchant_id/:items_id/edit', to: "items#edit"
-    # patch '/:merchant_id/:items_id', to: "items#update"
     get '/orders/:order_id/item_orders/:item_order_id/fulfill', to: 'item_orders#fulfill'
   end
 
