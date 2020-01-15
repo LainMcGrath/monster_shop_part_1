@@ -26,7 +26,7 @@
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
 <h3 align = "right">Merchant subtotal: <%= number_to_currency(cart.merchant_subtotal(@coupon.code))%></h3>
 <h3 align = "right">Discounted total: <%= number_to_currency(cart.merchant_discounted_subtotal(@coupon.code))%></h3>
-
+<h3 align = "right">Coupon name: <%= @coupon.name %></h3>
 
 <center>
   <%= form_tag "/orders/#{@coupon.id}/new", method: :create do %>

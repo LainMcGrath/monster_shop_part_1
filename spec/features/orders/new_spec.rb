@@ -72,6 +72,7 @@ RSpec.describe("New Order Page") do
       click_on "Checkout"
       expect(page).to have_content("Merchant subtotal: $100.00")
       expect(page).to have_content("Discounted total: $85.00")
+      expect(page).to have_content("Coupon name: 15% off")
       expect(current_path).to eq("/orders/#{coupon.id}/submit")
 
       fill_in :name, with: "Hermione Granger"
