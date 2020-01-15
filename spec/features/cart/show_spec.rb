@@ -218,13 +218,6 @@ RSpec.describe 'Cart show' do
       end
     end
 
-    # add test for logging out removes coupon from cart
-    describe "logging out removes the coupon from cart" do
-      xit "can remove the coupon from cart" do
-
-      end
-    end
-
     describe "the coupon is saved in the cart if the user navigates away" do
       it "can apply a coupon and continue shopping" do
         meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
