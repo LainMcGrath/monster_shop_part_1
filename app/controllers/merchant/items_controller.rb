@@ -14,12 +14,9 @@ class Merchant::ItemsController < Merchant::BaseController
     item = @merchant.items.create(item_params)
     binding.pry
       if item.save
-        binding.pry
         redirect_to "/merchants/#{@merchant.id}/items"
       else
         flash[:error] = item.errors.full_messages.to_sentence
-        # binding.pry
-        # render :new
         redirect_to "/merchant/#{@merchant.id}/items/new"
         @auto_popu = params_f
       end
@@ -55,17 +52,6 @@ class Merchant::ItemsController < Merchant::BaseController
       redirect_to "/merchants/#{merchant.id}/items"
     end
 
-  # def update
-  #   merchant = Merchant.find(params[:merchant_id])
-  #   item = merchant.items.find(params[:item_id])
-  #   item.toggle(:active?).save
-  #   if item.active?
-  #     flash[:success] = "#{item.name} is active and available for sale."
-  #   else
-  #     flash[:success] = "#{item.name} is deactivated and no longer for sale."
-  #   end
-  #   redirect_to "/merchants/#{merchant.id}/items"
-  # end
 
   def destroy
     merchant = Merchant.find(params[:merchant_id])
