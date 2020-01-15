@@ -25,6 +25,16 @@ class Order < ApplicationRecord
     item_orders.sum(:quantity)
   end
 
+  def order_discount_total(order_coupon_id)
+    coupon = Coupon.find_by(id: order_coupon_id)
+    self.grandtotal -  (self.grandtotal * (coupon.discount * 0.01))
+  end
+
+  def coupon_name(order_coupon_id)
+    coupon = Coupon.find_by(id: order_coupon_id)
+    coupon.name
+  end
+
   def self.status(status_searching_for)
     # can take argument of "packaged", "pending", "shipped", or "cancelled"
     where(status: "#{status_searching_for}")
