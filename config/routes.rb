@@ -37,6 +37,9 @@ Rails.application.routes.draw do
   get "/cart", to: "cart#show"
   patch "/cart", to: "cart#update_coupon"
 
+  get "/orders/:coupon_id/submit", to: "coupon_orders#new"
+  post "/orders/:coupon_id/new", to: "coupon_orders#create"
+
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
