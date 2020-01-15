@@ -92,6 +92,8 @@ Rails.application.routes.draw do
     patch '/orders/:id', to: "orders#update"
   end
 
+  get 'admin/merchants/:merchant_id/orders/:id', to: "orders#show"
+  
   scope :admin do
     get '/merchants/:merchant_id/items', to: "merchant/items#index"
   end
