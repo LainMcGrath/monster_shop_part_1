@@ -23,7 +23,7 @@
         <p>Total Number of Items in Your Order: <%= order.total_items %> Items</p>
       <% end %>
         <section id="grandtotal"
-          <p>Your Total: <%= number_to_currency(order.grandtotal/100.0) %></p>
+          <p>Your Total: <%= number_to_currency(order.grandtotal) %></p>
         </section>
       <br>
     </section>
@@ -32,9 +32,9 @@
       <section id="item-<%= item_order.item.id %>">
         <p><%= link_to "#{item_order.item.name}", "/items/#{item_order.item.id}" %></p>
         <p><%= link_to "#{item_order.item.merchant.name}", "/merchants/#{item_order.item.merchant.id}" %></p>
-        <p>Price: <%= number_to_currency(item_order.item.price/100.0) %></p>
+        <p>Price: <%= number_to_currency(item_order.item.price) %></p>
         <p>Quantity: <%= item_order.quantity %></p>
-        <p>Total: <%= number_to_currency(item_order.subtotal/100.0) %></p>
+        <p>Total: <%= number_to_currency(item_order.subtotal) %></p>
       </section>
     <% end %>
   <% end %>
