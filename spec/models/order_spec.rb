@@ -79,5 +79,19 @@ describe Order, type: :model do
       expect(order_1.status).to eq('packaged')
       expect(order_2.status).to eq('pending')
     end
+
+    it "can calculate grandtotal" do
+      expect(@order_1.grandtotal).to eq(230.0)
+    end
+
+    it "can calculate order_discount_total" do
+      coupon_1 = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: @meg.id)
+      expect(@order_1.order_discount_total(coupon_1.id)).to eq(195.5)
+    end
+
+    it "can find coupon name" do
+      coupon_1 = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: @meg.id)
+      expect(@order_1.coupon_name(coupon_1.id)).to eq("15% off")
+    end
   end
 end
