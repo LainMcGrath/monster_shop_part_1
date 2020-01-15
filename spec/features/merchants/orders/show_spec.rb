@@ -68,5 +68,24 @@ RSpec.describe "as a merchant" do
       expect(page).to_not have_content(@pull_toy.name)
       expect(page).to_not have_content(@dog_bone.name)
     end
+
+    it "does not show coupon section on order show page if coupon was not used" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
+      visit "/merchant/orders/#{@order_1.id}"
+
+      expect(page).to_not have_content("Coupon used: ")
+      expect(page).to_not have_content("Order total with discount: ")
+    end
+
+    it "shows coupon section on order show page if coupon was not used" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
+      coupon = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: @bike_shop.id)
+      order_2 = @user.orders.create!(name: 'Mike', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, coupon_id: coupon.id)
+
+      visit "/merchant/orders/#{order_2.id}"
+
+      expect(page).to have_content("Coupon used: 15% off")
+      expect(page).to have_content("Order total with discount: ")
+    end
   end
 end
