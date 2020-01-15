@@ -38,3 +38,6 @@ item_order_2 = order_1.item_orders.create!(item: pull_toy, price: pull_toy.price
 item_order_3 = order_1.item_orders.create!(item: dog_bone, price: dog_bone.price, quantity: 10)
 item_order_4 = order_2.item_orders.create!(item: tire, price: tire.price, quantity: 7)
 item_order_5 = order_2.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 20)
+
+#coupons
+coupon = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: bike_shop.id)

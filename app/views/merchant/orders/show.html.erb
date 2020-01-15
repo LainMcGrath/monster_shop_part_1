@@ -30,6 +30,9 @@
       <th>Price</th>
       <th>Quantity</th>
       <th>Subtotal</th>
+      <% if @order.coupon_id != nil %>
+        <th> Discounted subtotal </th>
+      <% end %>
       <th>Fulfilled?</th>
     </tr>
   <% current_user.merchant.item_orders_on_order(@order).each do |item_order|%>
@@ -45,6 +48,10 @@
       <td><p><%= number_to_currency(item_order.price)%></p></td>
       <td><p><%= item_order.quantity%></p></td>
       <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
+
+      <% if @order.coupon_id != nil %>
+        <td><p><%= number_to_currency(@order.order_discount_total(@order.coupon_id)) %></p>
+      <% end %>
       <% if item_order.quantity <= item_order.item.inventory && item_order.status == 'unfulfilled'%>
         <td><p><%= link_to "Fulfill #{item_order.item.name}", "/merchant/orders/#{@order.id}/item_orders/#{item_order.id}/fulfill"%></p></td>
       <% elsif item_order.quantity > item_order.item.inventory %>
@@ -61,3 +68,8 @@
 <h1 align = "center">Order status: <%= @order.status %></h1>
 <h1 align = "center">Order total: <%= number_to_currency(@order.grandtotal) %></h1>
 <h1 align = "center">Total items ordered: <%= @order.total_quantity %></h1>
+
+<% if @order.coupon_id != nil %>
+  <h1 align = "center">Coupon used: <%= @order.coupon_name(@order.coupon_id) %></h1>
+  <h1 align = "center">Order total with discount: <%= number_to_currency(@order.order_discount_total(@order.coupon_id)) %></h1>
+<% end %>

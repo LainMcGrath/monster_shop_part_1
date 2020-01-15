@@ -51,6 +51,7 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
+
   private
 
     def not_admin?

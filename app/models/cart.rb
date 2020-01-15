@@ -44,6 +44,7 @@ class Cart
   def merchant_discounted_subtotal(coupon_code)
     coupon = Coupon.find_by(code: coupon_code)
     self.merchant_subtotal(coupon_code) - ( self.merchant_subtotal(coupon_code) * (coupon.discount * 0.01))
+
   end
 
 

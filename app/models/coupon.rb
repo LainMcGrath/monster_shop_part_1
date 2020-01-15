@@ -12,4 +12,5 @@ class Coupon < ApplicationRecord
   def no_orders
     orders.empty?
   end
+
 end

@@ -9,7 +9,7 @@
   <% @merchant.orders_info.each do |item_order| %>
     <% if item_order.order.status == "pending" %>
     <section id="order-<%= item_order.order_id %>">
-      <%= link_to "#{item_order.order_id}", "merchant/orders/#{item_order.order.id}" %>
+      <%= link_to "#{item_order.order_id}", "/admin/merchants/#{@merchant.id}/orders/#{item_order.order.id}" %>
       Order Creation Date: <%= item_order.order.created_at.strftime('%m/%d/%y') %>
       Total Quantity: <%= item_order.total_quantity %>
       Total Value: <%= number_to_currency(@merchant.order_price(item_order.order_id)/100.0) %>

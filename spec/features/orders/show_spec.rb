@@ -47,4 +47,33 @@ RSpec.describe "Order show page", type: :feature do
       expect(current_path).to eq("/items/#{item_order_2.item_id}")
     end
   end
+
+  it "can show coupons used on order show page" do
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    coupon = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: meg.id)
+
+    user = User.create!(name: "User", address: "1230 East Street", city: "Boulder", state: "CO", zip: 98273, email: "user@user.com", password: "user", password_confirmation: "user")
+    order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, coupon_id: coupon.id)
+    item_order_1 = order_1.item_orders.create!(item: tire, price: tire.price, quantity: 1)
+
+    visit "/orders/#{order_1.id}"
+
+    expect(page).to have_content("Coupon used: #{coupon.name}")
+    expect(page).to have_content("Order total with discount: $85.00")
+  end
+
+  it "does not show coupons section on order show page if no coupon was used" do
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+    user = User.create!(name: "User", address: "1230 East Street", city: "Boulder", state: "CO", zip: 98273, email: "user@user.com", password: "user", password_confirmation: "user")
+    order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+    item_order_1 = order_1.item_orders.create!(item: tire, price: tire.price, quantity: 1)
+
+    visit "/orders/#{order_1.id}"
+
+    expect(page).to_not have_content("Coupon used: ")
+    expect(page).to_not have_content("Order total with discount: $85.00")
+  end
 end
