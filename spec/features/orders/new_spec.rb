@@ -63,15 +63,25 @@ RSpec.describe("New Order Page") do
       expect(page).to have_button("Create Order")
     end
 
-    it "can see a discounted subtotal if a coupon is used" do
-      user = User.create!(name: "User", address: "1230 East Street", city: "Boulder", state: "CO", zip: 98273, email: "user4@user.com", password: "user", password_confirmation: "user")
+    it "can see a different uri if a coupon is used" do
       coupon = Coupon.create(name: "15% off", code: "WOOF!", discount: 15, merchant_id: @meg.id)
-      order_2 = user.orders.create!(name: 'Mike', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, coupon_id: coupon.id)
 
       visit "/cart"
+      fill_in :code, with: "WOOF!"
+      click_on "Apply coupon"
       click_on "Checkout"
+      expect(page).to have_content("Merchant subtotal: $100.00")
+      expect(page).to have_content("Discounted total: $85.00")
+      expect(current_path).to eq("/orders/#{coupon.id}/submit")
 
-      expect(page).to have_content("Discounted subtotal: $85.00")
+      fill_in :name, with: "Hermione Granger"
+      fill_in :address, with: "123 Main St"
+      fill_in :city, with: "Fort Collins"
+      fill_in :state, with: "Colorado"
+      fill_in :zip, with: "80206"
+
+      click_on "Create Order"
+      expect(current_path).to eq("/profile/orders")
     end
   end
 end
