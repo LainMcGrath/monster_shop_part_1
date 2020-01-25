@@ -1,3 +1,4 @@
+
 <h1 align = "center">Order</h1>
 <table>
   <tr>
@@ -20,6 +21,12 @@
   <% end %>
 </table>
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
+<% if @coupon %>
+  <h3 align = "right">Discount amount: <%= @coupon.discount %>% off</h3>
+  <h3 align = "right">Merchant total with discount: <%= number_to_currency(cart.total)%></h3>
+  <h3 align = "right">Total amount owed: <%= number_to_currency(cart.total)%></h3>
+<% end %>
+
 
 <center>
   <h2>Shipping Info:</h2>
