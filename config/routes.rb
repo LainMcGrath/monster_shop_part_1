@@ -40,57 +40,88 @@ Rails.application.routes.draw do
     patch "/:id", to: "orders#cancel"
   end
 
-  get "/profile/orders", to: "orders#index"
-  get "profile/orders/:id", to: "orders#show"
+  scope :profile do
+    get "/edit", to: "users#edit"
+    get "/", to: "users#show"
+    patch "/", to: "users#update"
 
-  get "/register", to: "users#new"
-  post "/users", to: "users#create"
-  get "/profile", to: "users#show"
-  get "/profile/edit", to: "users#edit"
-  patch "/profile", to: "users#update"
-  get "/profile/password/edit", to: "users#edit"
-  patch "/profile/password", to: "users#update"
+    scope :orders do
+      get "/", to: "orders#index"
+      get "/:id", to: "orders#show"
+    end
 
+    scope :password do
+      get "/edit", to: "users#edit"
+      patch "/", to: "users#update"
+    end
+  end
 
-  get "/users", to: "sessions#show"
-  get "/login", to: "sessions#new"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  scope :register do
+    get "/", to: "users#new"
+  end
+
+  scope :users do
+    post "/", to: "users#create"
+    get "/", to: "sessions#show"
+  end
+
+  scope :login do
+    get "/", to: "sessions#new"
+    post "/", to: "sessions#create"
+  end
+
+  scope :logout do
+    delete "/", to: "sessions#destroy"
+  end
 
   namespace :merchant do
     get '/', to: "merchant#show"
-    get '/coupons/new', to: "coupons#new"
-    post '/coupons', to: "coupons#create"
-    get '/coupons/:coupon_id/edit', to: "coupons#edit"
-    patch '/coupons/:coupon_id', to: "coupons#update"
-    get '/coupons/:coupon_id', to: "coupons#show"
-    delete '/coupons/:coupon_id', to: "coupons#destroy"
     get '/:merchant_id/items', to: "items#index"
-    get '/orders/:id', to: 'orders#show'
     get '/:merchant_id/items/new', to: "items#new"
     post '/:merchant_id/items', to: "items#create"
-    get '/orders/:order_id/item_orders/:item_order_id/fulfill', to: 'item_orders#fulfill'
+
+    scope :coupons do
+      get '/new', to: "coupons#new"
+      post '/', to: "coupons#create"
+      get '/:coupon_id/edit', to: "coupons#edit"
+      patch '/:coupon_id', to: "coupons#update"
+      get '/:coupon_id', to: "coupons#show"
+      delete '/:coupon_id', to: "coupons#destroy"
+    end
+
+    scope :orders do
+      get '/:id', to: 'orders#show'
+      get '/:order_id/item_orders/:item_order_id/fulfill', to: 'item_orders#fulfill'
+    end
   end
 
   namespace :admin do
     get '/', to: "admins#show"
-    get '/merchants/', to: "merchants#index"
-    patch '/merchants/:merchant_id', to: 'merchants#update'
-    get '/merchants/:merchant_id', to: "merchants#show"
-    get '/users', to: "users#index"
-    get '/users/:user_id/', to: "users#show"
-    get '/users/:user_id/profile/edit', to: "users#edit"
-    patch '/users/:user_id/profile', to: "users#update"
-    get '/users/:user_id/password/edit', to: "users#edit"
-    patch 'users/:user_id/password', to: "users#update"
-    get '/users/:user_id/upgrade_to_merchant_employee', to: "users#change_role"
-    get '/users/:user_id/upgrade_to_merchant_admin', to: "users#change_role"
+
+    scope :merchants do
+      get '/', to: "merchants#index"
+      patch '/:merchant_id', to: 'merchants#update'
+      get '/:merchant_id', to: "merchants#show"
+    end
+
+    scope :users do
+      get '/', to: "users#index"
+      get '/:user_id/', to: "users#show"
+      get '/:user_id/profile/edit', to: "users#edit"
+      patch '/:user_id/profile', to: "users#update"
+      get '/:user_id/password/edit', to: "users#edit"
+      patch '/:user_id/password', to: "users#update"
+      get '/:user_id/upgrade_to_merchant_employee', to: "users#change_role"
+      get '/:user_id/upgrade_to_merchant_admin', to: "users#change_role"
+    end
+
     patch '/orders/:id', to: "orders#update"
   end
 
-  get 'admin/merchants/:merchant_id/orders/:id', to: "orders#show"
-
   scope :admin do
-    get '/merchants/:merchant_id/items', to: "merchant/items#index"
+    scope :merchants do
+      get '/:merchant_id/orders/:id', to: "orders#show"
+      get '/:merchant_id/items', to: "merchant/items#index"
+    end
   end
 end
