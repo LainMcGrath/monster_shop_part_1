@@ -97,6 +97,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: "admins#show"
+    patch '/orders/:id', to: "orders#update"
 
     scope :merchants do
       get '/', to: "merchants#index"
@@ -114,8 +115,6 @@ Rails.application.routes.draw do
       get '/:user_id/upgrade_to_merchant_employee', to: "users#change_role"
       get '/:user_id/upgrade_to_merchant_admin', to: "users#change_role"
     end
-
-    patch '/orders/:id', to: "orders#update"
   end
 
   scope :admin do
