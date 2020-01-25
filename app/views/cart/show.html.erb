@@ -57,7 +57,7 @@
   <p>Discount amount: <%= @coupon['discount'] %>%</p>
   <p>Merchant total with discount: <%= number_to_currency(cart.merchant_discounted_subtotal(@coupon['code']))%></p>
   <p>Total amount owed: <%= number_to_currency(cart.discounted_total(@coupon)) %></p>
-  <p><%= link_to "Checkout", "/orders/#{@coupon['id']}/submit" %></p>
+  <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
 <% end %>
 
 <% if @coupon == nil %>
