@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
 
   def new
+    if session[:coupon]
+      @coupon = Coupon.find_by(params[coupon_id: :coupon_id])
+    end
   end
 
   def show
@@ -19,6 +22,11 @@ class OrdersController < ApplicationController
           })
       end
       session.delete(:cart)
+      if session[:coupon]
+          coupon = Coupon.find_by(params[coupon_id: :coupon_id])
+          Order.last.update(coupon_id: coupon.id)
+          session.delete(:coupon)
+        end
       redirect_to "/profile/orders"
       flash[:notice] = "Your order was created!"
     else

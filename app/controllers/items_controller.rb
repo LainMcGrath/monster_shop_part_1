@@ -33,7 +33,6 @@ class ItemsController<ApplicationController
     @item = Item.find_by(params[id: :item_id])
   end
 
-
   def update
     merchant = Merchant.find_by(params[:merchant_id])
     @item = Item.find_by(params[:items_id])

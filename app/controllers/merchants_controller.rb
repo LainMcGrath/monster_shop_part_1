@@ -10,7 +10,6 @@ class MerchantsController <ApplicationController
 
   def new
     @merchant = Merchant.new
-    # require "pry"; binding.pry
   end
 
   def create
