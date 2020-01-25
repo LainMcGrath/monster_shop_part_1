@@ -82,7 +82,7 @@ RSpec.describe 'i can click the name of the orders to see what i ordered' do
     expect(page).to have_content("Order Updated at:")
     expect(page).to have_content("Order Status: pending")
     expect(page).to have_content("Total Number of Items in Your Order: 2 Items")
-    expect(page).to have_content("Your Total: $1.20")
+    expect(page).to have_content("Your Total: $120.0")
 
     click_link "Order Number: #{new_order.id}"
     expect(current_path).to eq("/profile/orders/#{new_order.id}")
