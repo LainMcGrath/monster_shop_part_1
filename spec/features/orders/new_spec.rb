@@ -70,10 +70,10 @@ RSpec.describe("New Order Page") do
       fill_in :code, with: "WOOF!"
       click_on "Apply coupon"
       click_on "Checkout"
-      expect(page).to have_content("Merchant subtotal: $100.00")
-      expect(page).to have_content("Discounted total: $85.00")
-      expect(page).to have_content("Coupon name: 15% off")
-      expect(current_path).to eq("/orders/#{coupon.id}/submit")
+      expect(page).to have_content("Merchant total with discount: $142.00")
+      expect(page).to have_content("Discount amount: 15.0% off")
+      expect(page).to have_content("Total amount owed: $142.00")
+      expect(current_path).to eq("/orders/new")
 
       fill_in :name, with: "Hermione Granger"
       fill_in :address, with: "123 Main St"
